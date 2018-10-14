@@ -20,5 +20,5 @@ build_script:
 artifacts:
   - path: public
 on_success:
-   - git push git@github.com:nvdacn/nvdacn.github.io
+   - git push https://github.com/nvdacn/nvdacn.github.io
    - hexo clean
