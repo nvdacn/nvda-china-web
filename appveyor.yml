@@ -1,11 +1,8 @@
 clone_depth: 5
-
 environment:
-  nodejs_version: "6"
+  nodejs_version: "10"
   access_token:
     secure: YJGN4kn7 + Ee4G5KAw2KKVL2xPZtD0DuSg0Ay1ZIzSHJ7ALdc767qpnyNDKZIw1NP
-
-
 install:
  # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
@@ -34,4 +31,3 @@ on_success:
   - SETLOCAL EnableDelayedExpansion & robocopy "%APPVEYOR_BUILD_FOLDER%\public" "%TEMP%\static-site" /e & IF !ERRORLEVEL! EQU 1 (exit 0) ELSE (IF !ERRORLEVEL! EQU 3 (exit 0) ELSE (exit 1))
   - git add -A
   - if "%APPVEYOR_REPO_BRANCH%"=="master" if not defined APPVEYOR_PULL_REQUEST_NUMBER (git diff --quiet --exit-code --cached || git commit -m "Update Static Site" && git push origin %TARGET_BRANCH% && appveyor AddMessage "Static Site Updated")
-
