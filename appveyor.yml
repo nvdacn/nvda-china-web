@@ -3,7 +3,7 @@ clone_depth: 5
 environment:
   nodejs_version: "10"
   access_token:
-    secure: df12pQIpAsNHKWrgthAWe5bulP2xgv2AwGnJFS6Cq4KO8EMuo5i8 / EcY71oNB17w
+    secure: DO1FA80B0MgslEfR6NntOIORHAtFOrzO70MvNfZK3OIHpXrundrrSBSx+nEkgx9m
 
 install:
  # Get the latest stable version of Node.js or io.js
@@ -24,11 +24,9 @@ artifacts:
 on_success:
   - git config --global credential.helper store
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-  STATIC_SITE_REPO: https://github.com/nvdacn/nvdacn.github.io.git
-  TARGET_BRANCH: master
-  GIT_USER_NAME: tuJNq + ysGQqmhBKRBFNjQPxBYyFjSInfXYc6TzR6bKk =
-  GIT_USER_EMAIL: 8aEPQ + 3xcetTlQDgvcsEqzYa9W + LJ4f9vFAQHVt1KUkOCExkWCxYqpUzYieK7tLlUwh61IZ5qik / SU5Wi0s61A ==
-  - cd %TEMP%\static-site
+  - git config --global user.email "%GIT_USER_EMAIL%"
+  - git config --global user.name "%GIT_USER_NAME%"  - git clone --depth 5 -q --branch=%TARGET_BRANCH% %nvda-china-web% %TEMP%\nvda-china-web
+  - cd %TEMP%\nvda-china-web
   - del * /f /q
   - for /d %%p IN (*) do rmdir "%%p" /s /q
   - SETLOCAL EnableDelayedExpansion & robocopy "%APPVEYOR_BUILD_FOLDER%\public" "%TEMP%\static-site" /e & IF !ERRORLEVEL! EQU 1 (exit 0) ELSE (IF !ERRORLEVEL! EQU 3 (exit 0) ELSE (exit 1))
