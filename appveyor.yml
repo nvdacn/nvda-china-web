@@ -5,7 +5,6 @@ environment:
   access_token:
     secure: df12pQIpAsNHKWrgthAWe5bulP2xgv2AwGnJFS6Cq4KO8EMuo5i8 / EcY71oNB17w
 
-
 install:
  # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
@@ -25,9 +24,10 @@ artifacts:
 on_success:
   - git config --global credential.helper store
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
-  - git config --global user.email "%GIT_USER_EMAIL%"
-  - git config --global user.name "%GIT_USER_NAME%"
-  - git clone --depth 5 -q --branch=%TARGET_BRANCH% %STATIC_SITE_REPO% %TEMP%\static-site
+  STATIC_SITE_REPO: https://github.com/nvdacn/nvdacn.github.io.git
+  TARGET_BRANCH: master
+  GIT_USER_NAME: tuJNq + ysGQqmhBKRBFNjQPxBYyFjSInfXYc6TzR6bKk =
+  GIT_USER_EMAIL: 8aEPQ + 3xcetTlQDgvcsEqzYa9W + LJ4f9vFAQHVt1KUkOCExkWCxYqpUzYieK7tLlUwh61IZ5qik / SU5Wi0s61A ==
   - cd %TEMP%\static-site
   - del * /f /q
   - for /d %%p IN (*) do rmdir "%%p" /s /q
