@@ -3,7 +3,8 @@ clone_depth: 5
 environment:
   nodejs_version: "10"
   access_token:
-    secure: DO1FA80B0MgslEfR6NntOIORHAtFOrzO70MvNfZK3OIHpXrundrrSBSx+nEkgx9m
+    secure: VlkgnuPCuh2BFrEe7EBmDpEjNuUfnWT4VUbZa6J3gWAmZz4 + 9TZgdc7ccMSNr
+
 
 install:
  # Get the latest stable version of Node.js or io.js
@@ -25,8 +26,9 @@ on_success:
   - git config --global credential.helper store
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
   - git config --global user.email "%GIT_USER_EMAIL%"
-  - git config --global user.name "%GIT_USER_NAME%"  - git clone --depth 5 -q --branch=%TARGET_BRANCH% %nvda-china-web% %TEMP%\nvda-china-web
-  - cd %TEMP%\nvda-china-web
+  - git config --global user.name "%GIT_USER_NAME%"
+  - git clone --depth 5 -q --branch=%TARGET_BRANCH% %STATIC_SITE_REPO% %TEMP%\static-site
+  - cd %TEMP%\static-site
   - del * /f /q
   - for /d %%p IN (*) do rmdir "%%p" /s /q
   - SETLOCAL EnableDelayedExpansion & robocopy "%APPVEYOR_BUILD_FOLDER%\public" "%TEMP%\static-site" /e & IF !ERRORLEVEL! EQU 1 (exit 0) ELSE (IF !ERRORLEVEL! EQU 3 (exit 0) ELSE (exit 1))
